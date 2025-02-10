@@ -1,0 +1,14 @@
+# Ignore build files and dependencies
+*.class
+*.jar
+*.war
+*.ear
+*.log
+target/
+out/
+bin/
+node_modules/
+
+# IntelliJ IDEA settings
+.idea/
+*.iml
