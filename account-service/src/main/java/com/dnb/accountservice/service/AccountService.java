@@ -23,4 +23,8 @@ public interface AccountService {
 	
 	public Optional<Account> getAccountByUserId(int userId);
 
+	public Account getAccountById(String accountId);
+
+	public Account updateAccount(Account account);
+
 }

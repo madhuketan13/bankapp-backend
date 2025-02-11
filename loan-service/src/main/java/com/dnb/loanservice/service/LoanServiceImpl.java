@@ -50,4 +50,8 @@ public class LoanServiceImpl implements LoanService {
 		return loanRepository.findByAccountId(accountId);
 	}
 
+	public List<Loan> getAllLoans() {
+		return (List<Loan>) loanRepository.findAll();
+	}
+
 }

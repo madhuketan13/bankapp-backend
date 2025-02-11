@@ -102,6 +102,14 @@ public class AccountServiceImpl implements AccountService {
 		// TODO Auto-generated method stub
 		return accountRepository.findByUserId(userId);
 	}
+
+	public Account getAccountById(String accountId) {
+		return accountRepository.findById(accountId).orElse(null);
+	}
+
+	public Account updateAccount(Account account) {
+		return accountRepository.save(account);
+	}
 	
 	
 	

@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.dnb.accountservice.dto.Account;
 import com.dnb.accountservice.dto.Loan;
@@ -37,13 +32,33 @@ public class AccountController {
 	
 	@Autowired
 	EntityToProfileResponse entityToResponseMapper;
-	
+
 	@PostMapping("/create")
 	public ResponseEntity<?> createAccount(@RequestBody AccountRequest account) throws IdNotFoundException {
 		Account accountRequest = mapper.getAccountEntity(account);
 		Account accountData = accountService.createAccount(accountRequest);
 		return new ResponseEntity(accountData, HttpStatus.CREATED);
 
+	}
+
+	@PutMapping("/update/{accountId}")
+	public ResponseEntity<?> updateAccount(@PathVariable String accountId, @RequestBody AccountRequest accountRequest) throws IdNotFoundException {
+		Account existingAccount = accountService.getAccountById(accountId);
+
+		if (existingAccount == null) {
+			throw new IdNotFoundException("Account with ID " + accountId + " not found.");
+		}
+
+		existingAccount.setAccountStatus(accountRequest.getAccountStatus());
+		existingAccount.setAccountType(accountRequest.getAccountType());
+		existingAccount.setAccountBalance(accountRequest.getAccountBalance());
+		existingAccount.setPancardNumber(accountRequest.getPancardNumber());
+		existingAccount.setAadharcardNumber(accountRequest.getAadharcardNumber());
+		existingAccount.setUserId(accountRequest.getUserId());
+
+		Account updatedResponse = accountService.updateAccount(existingAccount);
+
+		return new ResponseEntity<>(updatedResponse, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{accountId}")

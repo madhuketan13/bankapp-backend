@@ -12,7 +12,7 @@ public interface LoanService {
 	
 	public Optional<Loan> getLoanDetails(String loanId);	
 	
-	public List<Loan> getLoanDetailsByAccountId(String accountId);	
-	
+	public List<Loan> getLoanDetailsByAccountId(String accountId);
 
+	public List<Loan> getAllLoans();
 }

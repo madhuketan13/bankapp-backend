@@ -48,4 +48,10 @@ public class LoanController {
 		return ResponseEntity.ok(listOfLoans);
 	}
 
+	@GetMapping("/getAllLoans")
+	public ResponseEntity<List<Loan>> getAllLoans() {
+		List<Loan> loans = loanService.getAllLoans();
+		return ResponseEntity.ok(loans);
+	}
+
 }
