@@ -3,6 +3,7 @@ package com.dnb.loanservice.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.dnb.loanservice.enums.LoanStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,22 @@ public class LoanServiceImpl implements LoanService {
 
 	public List<Loan> getAllLoans() {
 		return (List<Loan>) loanRepository.findAll();
+	}
+
+	public boolean updateLoanStatus(String loanId, LoanStatus status) {
+		Optional<Loan> loanOptional = loanRepository.findById(loanId);
+
+		if (loanOptional.isPresent()) {
+			Loan loan = loanOptional.get();
+			loan.setLoanStatus(status);
+			loanRepository.save(loan);
+			return true;
+		}
+		return false;
+	}
+
+	public List<Loan> getLoansByStatus(LoanStatus status) {
+		return loanRepository.findByLoanStatus(status);
 	}
 
 }

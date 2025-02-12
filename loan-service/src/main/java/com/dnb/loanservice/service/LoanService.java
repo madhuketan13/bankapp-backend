@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dnb.loanservice.dto.Loan;
+import com.dnb.loanservice.enums.LoanStatus;
 import com.dnb.loanservice.exceptions.IdNotFoundException;
 
 public interface LoanService {
@@ -15,4 +16,8 @@ public interface LoanService {
 	public List<Loan> getLoanDetailsByAccountId(String accountId);
 
 	public List<Loan> getAllLoans();
+
+	public boolean updateLoanStatus(String loanId, LoanStatus status);
+
+	public List<Loan> getLoansByStatus(LoanStatus status);
 }
